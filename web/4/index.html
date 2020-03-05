@@ -13,7 +13,7 @@
         let text = "Oh, I am sorry. Sorry for what? My dad told me not to be a shame our ...";
         document.write(text);
         document.write("<br/>");
-        document.write("Количество слов: ");
+        document.write("Количество символа: ");
         document.write(text.length);
     </script>
     
@@ -130,26 +130,18 @@
     </p>
     <h1>PART 3</h1>
     <script>
-// 3.1
 let forms = [];
-for (let i = 0; i < 11; i++) {
+for (let i = 0; i < 20; i++) {
     let form = document.createElement('form');
     form.name = `formName${i+1}`;
-    form.id = `formValue${i+1}`;
+    form.id = `formID${i+1}`;
     forms.push(form);
     document.body.append(form);
 }
-
-// 3.2
-let evenFormsNames = forms.filter((form) => form.id.substring(9, form.id.length) % 2 == 0)
+let evenFormsNames = forms.filter((form) => form.id.substring(6, form.id.length) % 2 == 0)
     .map((evenForm) => evenForm.id).join(', ');
-
 document.write(evenFormsNames);
-console.log(evenFormsNames);
-
-// 3.3
 let formsHTML = document.body.getElementsByTagName('form');
-console.log(formsHTML);
 for (let i = 0; i < formsHTML.length ; i++) {
     let inputText = document.createElement('input');
     let inputPass = document.createElement('input');
@@ -164,8 +156,6 @@ for (let i = 0; i < formsHTML.length ; i++) {
     formsHTML[i].appendChild(inputPass);
     formsHTML[i].appendChild(inputRadio);
 }
-
-// 3.4
 for (let i = 0; i < formsHTML.length ; i++) {
     let button = document.createElement('button');
     button.type = 'button';
@@ -174,8 +164,6 @@ for (let i = 0; i < formsHTML.length ; i++) {
     button.onclick = () => alert(button.innerText);
     formsHTML[i].appendChild(button);
 }
-
-// 3.5
 for (let i = 0; i < formsHTML.length ; i++) {
     let button = document.createElement('button');
     button.type = 'button';
@@ -184,8 +172,6 @@ for (let i = 0; i < formsHTML.length ; i++) {
     button.onclick = () => alert(button.parentNode.id);
     formsHTML[i].appendChild(button);
 }
-
-// 3.6
 for (let i = 0; i < formsHTML.length ; i++) {
     let button = document.createElement('button');
     button.type = 'reset';
@@ -193,8 +179,6 @@ for (let i = 0; i < formsHTML.length ; i++) {
     button.style.margin = "5px";
     formsHTML[i].appendChild(button);
 }
-
-// 3.7
 for (let i = 0; i < formsHTML.length ; i++) {
     let button = document.createElement('button');
     button.type = 'button';
@@ -205,10 +189,10 @@ for (let i = 0; i < formsHTML.length ; i++) {
     };
     formsHTML[i].appendChild(button);
 }
-
-// 3.8
 document.body.querySelectorAll('button').forEach((button)=> {
-    button.style.padding = '15px';
+    button.style.padding = '5px';
+    button.style.width = '150px';
+    button.style.display = 'inline-block';
     button.style.borderRadius = '10px';
     button.style.border = '1px solid gray';
     button.style.cursor = 'pointer';
