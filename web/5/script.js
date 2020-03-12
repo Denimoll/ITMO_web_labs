@@ -23,13 +23,13 @@ buttonCreateForm.innerText = "Create";
 buttonCreateForm.onclick = () => {
     let col = document.getElementById("countColumns").value,
         row = document.getElementById("countRows").value;
-    if (col <= 0 || row <= 0){
-        alert("incorrect data");
-        form1.reset();
-    } else{
+    if (col > 0 && row > 0){
         form1.style.display = "none";
         form2.style.display = "block";
         createTable(col, row);
+        form1.reset();
+    } else{
+        alert("incorrect data");
         form1.reset();
     }
 };
@@ -41,7 +41,7 @@ document.body.appendChild(form1);
 
 //Создаем форму с элементами. Заголовок еще
 var form2 = document.createElement("form"),
-    hForTable = document.createElement("h"),
+    hForTable = document.createElement("h2"),
     form21 = document.createElement("form"), //изменить границы таблицы
     h21 = document.createElement("h"),
     input21 = document.createElement("input"),
@@ -63,7 +63,7 @@ var form2 = document.createElement("form"),
     button25 = document.createElement("button");
 
 hForTable.style.display = "block";
-hForTable.innerText = "test";
+hForTable.innerText = "";
 form21.style.display = "inline-block";
 form21.style.margin = "10px";
 form21.style.textAlign = "center";
@@ -75,6 +75,7 @@ input21.style.display = "block";
 select21.style.width = "200px";
 select21.style.display = "block";
 button21.innerText = "Change";
+button21.type = "button";
 button21.style.width = "200px";
 button21.style.display = "block";
 
@@ -87,6 +88,7 @@ input22.type = "type";
 input22.style.width = "200px";
 input22.style.display = "block";
 button22.innerText = "Add";
+button22.type = "button";
 button22.style.width = "200px";
 button22.style.display = "block";
 
@@ -99,6 +101,7 @@ input23.type = "type";
 input23.style.width = "200px";
 input23.style.display = "block";
 button23.innerText = "Delete";
+button23.type = "button";
 button23.style.width = "200px";
 button23.style.display = "block";
 
@@ -109,6 +112,7 @@ h24.innerText = "Случайный выбор";
 h24.style.display = "block";
 button24.innerText = "WTF?";
 button24.style.width = "200px";
+button24.type = "button";
 button24.style.display = "block";
 
 form25.style.display = "inline-block";
@@ -117,6 +121,7 @@ form25.style.textAlign = "center";
 h25.innerText = "Удалить всю таблицу";
 h25.style.display = "block";
 button25.innerText = "Delete";
+button25.type = "button";
 button25.style.width = "200px";
 button25.style.display = "block";
 
@@ -175,3 +180,26 @@ function createTableCellContent(td) {
     form.appendChild(button);
     return form;
 }
+
+
+
+button22.onclick = () => {
+    hForTable.innerHTML = input22.value;
+    form22.reset();
+};
+
+button23.onclick = () => {
+    let tableRows = document.querySelectorAll('tr');
+    if (input23.value < 1 || input23.value > tableRows.length || input23.value.match(/([^0-9])/g)) {
+        alert('Некорректное число! Попробуйте еще раз.');
+    } else {
+        tableRows[input23.value - 1].remove();
+    }
+    form23.reset();
+};
+
+button25.onclick = () => {
+    document.querySelector('table').remove();
+    form2.style.display = "none";
+    form1.style.display = "block";
+};
