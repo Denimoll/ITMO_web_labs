@@ -17,15 +17,31 @@ inputColumns.style.display = "block";
 inputColumns.type = "text";
 inputColumns.id = "countColumns";
 buttonCreateForm.type = "button";
+buttonCreateForm.style.width = "150px";
 buttonCreateForm.innerText = "Create";
+
+buttonCreateForm.onclick = () => {
+    let col = document.getElementById("countColumns").value,
+        row = document.getElementById("countRows").value;
+    if (col <= 0 || row <= 0){
+        alert("incorrect data");
+        form1.reset();
+    } else{
+        form1.style.display = "none";
+        form2.style.display = "block";
+        createTable(col, row);
+        form1.reset();
+    }
+};
 
 form1.append(labelRows, inputRows, labelColumns, inputColumns, buttonCreateForm);
 document.body.appendChild(form1);
 
 
 
-//Создаем форму с элементами.
+//Создаем форму с элементами. Заголовок еще
 var form2 = document.createElement("form"),
+    hForTable = document.createElement("h"),
     form21 = document.createElement("form"), //изменить границы таблицы
     h21 = document.createElement("h"),
     input21 = document.createElement("input"),
@@ -46,10 +62,116 @@ var form2 = document.createElement("form"),
     h25 = document.createElement("h"),
     button25 = document.createElement("button");
 
+hForTable.style.display = "block";
+hForTable.innerText = "test";
+form21.style.display = "inline-block";
+form21.style.margin = "10px";
+form21.style.textAlign = "center";
+h21.innerText = "Изменить границы таблицы";
+h21.style.display = "block";
+input21.type = "type";
+input21.style.width = "200px";
+input21.style.display = "block";
+select21.style.width = "200px";
+select21.style.display = "block";
+button21.innerText = "Change";
+button21.style.width = "200px";
+button21.style.display = "block";
+
+form22.style.display = "inline-block";
+form22.style.margin = "10px";
+form22.style.textAlign = "center";
+h22.innerText = "Добавить заголовок";
+h22.style.display = "block";
+input22.type = "type";
+input22.style.width = "200px";
+input22.style.display = "block";
+button22.innerText = "Add";
+button22.style.width = "200px";
+button22.style.display = "block";
+
+form23.style.display = "inline-block";
+form23.style.margin = "10px";
+form23.style.textAlign = "center";
+h23.innerText = "Удалить строку";
+h23.style.display = "block";
+input23.type = "type";
+input23.style.width = "200px";
+input23.style.display = "block";
+button23.innerText = "Delete";
+button23.style.width = "200px";
+button23.style.display = "block";
+
+form24.style.display = "inline-block";
+form24.style.margin = "10px";
+form24.style.textAlign = "center";
+h24.innerText = "Случайный выбор";
+h24.style.display = "block";
+button24.innerText = "WTF?";
+button24.style.width = "200px";
+button24.style.display = "block";
+
+form25.style.display = "inline-block";
+form25.style.margin = "10px";
+form25.style.textAlign = "center";
+h25.innerText = "Удалить всю таблицу";
+h25.style.display = "block";
+button25.innerText = "Delete";
+button25.style.width = "200px";
+button25.style.display = "block";
+
 form21.append(h21, input21, select21, button21);
-form22.append(h22, input22, button21);
+form22.append(h22, input22, button22);
 form23.append(h23, input23, button23);
 form24.append(h24, button24);
 form25.append(h25, button25);
-form2.append(form21, form22, form23, form24, form25);
+form2.append(form21, form22, form23, form24, form25, hForTable);
 document.body.appendChild(form2);
+form2.style.display = "none";
+
+
+
+//Функции создания таблиц
+function createTable(columns, rows) {
+    let table = document.createElement("table");
+    table.style.borderCollapse = "collapse";
+
+    for (let i = 0; i < rows; i++) {
+        let tr = document.createElement("tr");
+        for (let j = 0; j < columns; j++) {
+            let td = createTableCell();
+            tr.appendChild(td);
+        }
+        table.appendChild(tr);
+    }
+    document.body.appendChild(table);
+}
+
+function createTableCell() {
+    let td = document.createElement("td");
+    td.style.minWidth = "100px";
+    td.style.height = "30px";
+    td.style.border = "1px solid black";
+    td.onmousemove = () => td.style.backgroundColor = "pink";
+    td.onmouseout = () => td.style.backgroundColor = "white";
+    td.appendChild(createTableCellContent(td));
+    return td;
+}
+
+function createTableCellContent(td) {
+    td.innerHTML = "";
+    let form = document.createElement("form"),
+        textarea = document.createElement("textarea"),
+        button = document.createElement("button");
+    button.innerText = "Save";
+    button.type = "button";
+    button.style.display = "block";
+    textarea.cols = 20;
+    textarea.rows = 5;
+    button.onclick = () => {
+        td.innerText = button.previousSibling.value;
+        form.remove();};
+    form.appendChild(textarea);
+    form.appendChild(button);
+    return form;
+}
