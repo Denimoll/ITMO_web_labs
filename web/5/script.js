@@ -62,6 +62,14 @@ var form2 = document.createElement("form"),
     h25 = document.createElement("h"),
     button25 = document.createElement("button");
 
+const border = ["none", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset"];
+for (let i = 0; i < border.length; i++) {
+    let opt = document.createElement("option");
+    opt.innerText = border[i];
+    select21.appendChild(opt);
+    select21.onchange = function () { button21.innerText = "Change on " + input21.value + " px" + " and border " + select21.value }
+}
+
 hForTable.style.display = "block";
 hForTable.innerText = "";
 form21.style.display = "inline-block";
@@ -72,6 +80,7 @@ h21.style.display = "block";
 input21.type = "type";
 input21.style.width = "200px";
 input21.style.display = "block";
+input21.oninput = function () { button21.innerText = "Change on " + input21.value + " px" + " and border " + select21.value }
 select21.style.width = "200px";
 select21.style.display = "block";
 button21.innerText = "Change";
@@ -182,6 +191,12 @@ function createTableCellContent(td) {
 }
 
 
+button21.onclick = () => {
+    let tdList = document.querySelectorAll('td');
+    tdList.forEach((td) => td.style.border = `${input21.value}px ${select21.value}`);
+    form21.reset();
+    button21.innerText = "Change";
+};
 
 button22.onclick = () => {
     hForTable.innerHTML = input22.value;
@@ -191,12 +206,52 @@ button22.onclick = () => {
 button23.onclick = () => {
     let tableRows = document.querySelectorAll('tr');
     if (input23.value < 1 || input23.value > tableRows.length || input23.value.match(/([^0-9])/g)) {
-        alert('Некорректное число! Попробуйте еще раз.');
+        alert('Incorrect data');
     } else {
         tableRows[input23.value - 1].remove();
     }
     form23.reset();
 };
+
+button24.onclick = () => {
+    let td = chooseRandomTableDataCell();
+    td.style.backgroundColor = setRandomColor();
+    chooseRandomFontStyle(td);
+};
+
+function chooseRandomTableDataCell() {
+    let tableRowList = document.querySelectorAll('tr');
+    let tableRowIndex = randomInteger(0, tableRowList.length - 1);
+    let tableDataCellIndex = randomInteger(0, tableRowList[tableRowIndex].cells.length - 1);
+    return tableRowList[tableRowIndex].cells[tableDataCellIndex];
+}
+
+function setRandomColor() {
+    let hexTable = "0123456789ABCDEF";
+    let newColor = '#';
+    for (let i = 0; i < 6; i++) {
+        newColor += hexTable[randomInteger(0, hexTable.length - 1)];
+    }
+    return newColor;
+}
+
+function chooseRandomFontStyle(td) {
+    let newColor = setRandomColor();
+    let newFontSize = randomInteger(15, 25) + 'px';
+    td.style.color = newColor;
+    td.style.fontSize = newFontSize;
+    if (typeof td.childNodes[0] !== 'undefined') {
+        td.childNodes[0].childNodes.forEach((elem) => {
+            elem.style.color = newColor;
+            elem.style.fontSize = newFontSize;
+        });
+    }
+}
+
+function randomInteger(min, max) {
+    let rand = min + Math.random() * (max + 1 - min);
+    return Math.floor(rand);
+}
 
 button25.onclick = () => {
     document.querySelector('table').remove();
