@@ -8,7 +8,7 @@ $(document).ready(function(){
         "text-decoration": "none",
         "color": "red"
     });
-    $("form *").prop("disabled", true);   
+    $("form *").attr("disabled", "true");   
  
     
 //2 задание. DOM
