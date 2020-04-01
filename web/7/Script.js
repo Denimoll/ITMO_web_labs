@@ -35,7 +35,7 @@ $(document).ready(function(){
     });
     
     $("#map").css("width", "100%");
-    $("#map p, #Information p").css({
+    $("#map p, #Information p, #task p, #home p").css({
         "max-width": "750px",
         "text-align": "justify",
         "margin": "0 auto",
@@ -50,4 +50,12 @@ $(document).ready(function(){
         "margin": "0 auto"
     });
 
+    $("#main form").css({
+        "max-width": "500px",
+        "min-width": "300px",
+        "margin": "0 auto"
+    });
+    
+    $("#createTable").css("border", "1px solid rgba(0, 0, 0, 0.5)");
+    
 });
