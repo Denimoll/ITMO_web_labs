@@ -53,9 +53,24 @@ $(document).ready(function(){
     $("#main form").css({
         "max-width": "500px",
         "min-width": "300px",
-        "margin": "0 auto"
+        "margin": "0px auto 100px"
     });
     
+    $("table").css("margin-bottom", "100px");
+    
     $("#createTable").css("border", "1px solid rgba(0, 0, 0, 0.5)");
+    
+    createTable.onclick = () => {
+    let col = document.getElementById("countColumns").value,
+        row = document.getElementById("countRows").value;
+    if (col > 0 && row > 0){
+        let address = "table.html?col=" + String(col) + "#row=" + String(row);
+        window.open(address);
+        forma.reset();
+    } else{
+        alert("incorrect data");
+        forma.reset();
+    }
+};
     
 });
